@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 
 #elif __APPLE__
-#include <GL/gl.h>
+#include <Opengl/gl.h>
 
 #else
 #define GL3_PROTOTYPES 1

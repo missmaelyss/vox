@@ -1,10 +1,17 @@
 CC=g++
 
-
 INC =-I/include -I/librairy/SDL2-2.0.12/include/
 CFLAGS=-g $(INC)
 
-LDFLAGS=-lm librairy/SDL2-2.0.12/build/.libs/libSDL2.a `librairy/SDL2-2.0.12/sdl2-config --static-libs` -lGL
+LDFLAGS=-lm librairy/SDL2-2.0.12/build/.libs/libSDL2.a `librairy/SDL2-2.0.12/sdl2-config --static-libs` 
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	LDFLAGS+= -lGL
+endif
+ifeq ($(UNAME_S),Darwin)
+	LDFLAGS+= -framework OpenGL
+endif
+
 EXEC=window
 
 SRC_NAME=main.cpp 
