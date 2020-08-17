@@ -1,6 +1,6 @@
 CC=g++
 
-INC =-I/include -I/librairy/SDL2-2.0.12/include/
+INC =-I include/
 CFLAGS=-g $(INC)
 
 LDFLAGS=-lm librairy/SDL2-2.0.12/build/.libs/libSDL2.a `librairy/SDL2-2.0.12/sdl2-config --static-libs` 
@@ -14,7 +14,7 @@ endif
 
 EXEC=window
 
-SRC_NAME=main.cpp 
+SRC_NAME=main.cpp SceneOpenGL.cpp
 SRC_PATH=source/
 SRC=$(addprefix $(SRC_PATH), $(SRC_NAME))
 
@@ -33,7 +33,7 @@ shell:
 $(SDL_LIB): $(SDL_PATH)
 	@cd $(SDL_PATH)/SDL*/ && ./configure; make
 
-$(SDL_PATH):
+$(SDL_PATH)/SDL2-2.0.12:
 	@mkdir -p $@
 	curl -o sdl.zip https://www.libsdl.org/release/SDL2-2.0.12.zip
 	@unzip sdl.zip -d $(SDL_PATH)
@@ -45,8 +45,6 @@ $(EXEC): $(OBJ)
 
 $(OBJ_PATH):
 	@mkdir -p $@
-
-main.o: hello.hpp
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.cpp 
 	$(CC) -o $@ -c $< $(CFLAGS)
