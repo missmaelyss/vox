@@ -3,7 +3,7 @@ CC=g++
 INC =-I include/
 CFLAGS=-g $(INC)
 
-LDFLAGS=-lm librairy/SDL2-2.0.12/build/.libs/libSDL2.a `librairy/SDL2-2.0.12/sdl2-config --static-libs` 
+LDFLAGS=-lm library/SDL2-2.0.12/build/.libs/libSDL2.a `library/SDL2-2.0.12/sdl2-config --static-libs` 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	LDFLAGS+= -lGL
@@ -22,23 +22,23 @@ OBJ_NAME= $(SRC_NAME:.cpp=.o)
 OBJ_PATH= object/
 OBJ=$(addprefix $(OBJ_PATH),$(OBJ_NAME))
 
-SDL_LIB=librairy/SDL2-2.0.12/build/.libs/libSDL2.a
-SDL_PATH=librairy/
+SDL_LIB=library/SDL2-2.0.12/build/.libs/libSDL2.a
+LIB=library/
 
 all: $(SDL_LIB) $(OBJ_PATH) $(EXEC)
 
 shell:
 	@echo $(shell uname)
 
-$(SDL_LIB): $(SDL_PATH)
-	@cd $(SDL_PATH)/SDL*/ && ./configure; make
-
-$(SDL_PATH)/SDL2-2.0.12:
-	@mkdir -p $@
+$(SDL_LIB): $(LIB)
+	@rm -rf $(LIB)/SDL2-2.0.12/
 	curl -o sdl.zip https://www.libsdl.org/release/SDL2-2.0.12.zip
-	@unzip sdl.zip -d $(SDL_PATH)
+	@unzip sdl.zip -d $(LIB)
 	@rm -rf sdl.zip
-	
+	@cd $(LIB)/SDL2-2.0.12/ && ./configure; make
+
+$(LIB):
+	@mkdir -p $@
 
 $(EXEC): $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
@@ -60,4 +60,4 @@ fclean: clean
 re: fclean all
 
 lclean:
-	rm -rf $(SDL_PATH)
+	rm -rf $(LIB)
