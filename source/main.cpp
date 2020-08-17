@@ -35,19 +35,17 @@ int main(int argc, char **argv)
 	
     // Version d'OpenGL
 	
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-	
+    // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
     // Double Buffer
 	
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	
+    // SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    // SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	
     // Création de la fenêtre
 
-    fenetre = SDL_CreateWindow("Test SDL 2.0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+    fenetre = SDL_CreateWindow("Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
 
     if(fenetre == 0)
     {
@@ -99,10 +97,10 @@ int main(int argc, char **argv)
 
     #endif
 
+// Vertices
 
-    // Vertices et coordonnées
-
-    float vertices[] = {-1, -1,   0, 1,   1, -1};
+float vertices[] = {0.0, 0.0,   0.5, 0.0,   0.0, 0.5};         // Triangle 1
+                    // -0.8, -0.8,   -0.3, -0.8,   -0.8, -0.3};   // Triangle 2
 
 
     // Boucle principale
@@ -124,11 +122,11 @@ int main(int argc, char **argv)
 
         // On remplie puis on active le tableau Vertex Attrib 0
 
-        glVertexAttribPointer(0, 2, GL_INT, GL_FALSE, 0, vertices);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, vertices);
         glEnableVertexAttribArray(0);
 
 
-        // On affiche le triangle
+        // On affiche des triangles
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
